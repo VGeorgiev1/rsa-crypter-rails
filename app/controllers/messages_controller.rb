@@ -15,7 +15,6 @@ class MessagesController < ApplicationController
 
     crypted = params[:message].each_char.map {|c| ((c.ord ** rsa.e % rsa.n)).to_s }.join(":")
     message = Message.new({rsaid: rsa.id, message: crypted})
-    p message
     respond_to do |format|
       if message.save
         format.json {render json: {'id' => message.id}}
